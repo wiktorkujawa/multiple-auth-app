@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const auth = require('./routes/auth');
 const session = require('express-session');
+const messages = require('./routes/api/messages');
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
@@ -47,7 +48,8 @@ mongoose
   .then(() => console.log('MongoDB Connected...')) 
   .catch(err => console.log(err)); 
 
-app.use('/auth', auth);
+app.use('/api/messages', auth);
+app.use('/auth', messages);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
