@@ -1,0 +1,12 @@
+textarea {
+  height: 200px;
+}
+.ngx-dropzone {
+  justify-content: center; 
+  height: 300px;
+  position: relative;
+}
+.ngx-dropzone-preview{
+  height: 70% !important;
+  position: absolute;
+}

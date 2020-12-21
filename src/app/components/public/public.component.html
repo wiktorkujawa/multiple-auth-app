@@ -17,8 +17,8 @@
       
       <a routerLink="/" class="logo">Logo</a>
       <div *ngIf='!mobile'>
-        <span><a routerLink="/about">About</a></span>
-        <span>Services</span>
+        <span><a class="active" routerLink="/">About</a></span>
+        <span><a class="active" routerLink="/messages">Messages</a></span>
         <span><a style="color: #111111;" mat-raised-button *ngIf='!user' [href]="environment + '/auth/google'">Login</a></span>
         <span><a style="color: #111111;" mat-raised-button *ngIf='user' [href]="environment + '/auth/logout'">Logout</a></span>
       </div>  

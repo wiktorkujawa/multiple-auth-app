@@ -48,8 +48,8 @@ mongoose
   .then(() => console.log('MongoDB Connected...')) 
   .catch(err => console.log(err)); 
 
-app.use('/api/messages', auth);
-app.use('/auth', messages);
+app.use('/api/messages', messages);
+app.use('/auth', auth);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 

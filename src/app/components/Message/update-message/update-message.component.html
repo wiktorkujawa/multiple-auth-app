@@ -1,0 +1,38 @@
+<button class="close" mat-button (click)="onNoClick()">X</button>
+<h2 mat-dialog-title>Update message</h2>
+<mat-dialog-content>
+<form (ngSubmit)="onSubmit()" class="form">
+  <mat-grid-list cols="2">
+  <mat-form-field style="width: 100%;" appearance="outline">
+    <mat-label>Add Content</mat-label>
+    <textarea matInput [(ngModel)]="content" [defaultValue]='content' name="content" maxlength="400"></textarea>
+  </mat-form-field>
+<!-- <br> -->
+
+  <mat-checkbox #isFile [checked]="fileImage" [(ngModel)]="fileImage" name="fileImage" labelPosition="before"> <b>Is File?</b> </mat-checkbox>
+  <mat-form-field style="width: 100%;" *ngIf="!fileImage" appearance="outline">
+    <mat-label>Path:</mat-label>
+    <input matInput [(ngModel)]="path" name="path">
+  </mat-form-field>
+
+  <div style="text-align: center;">
+    <img *ngIf="!fileImage" [src]='path' height="200" alt=''/>
+  </div>
+
+  <mat-checkbox [checked]="true" *ngIf="!fileImage" labelPosition="before" (change)="setGoogleImage($event)"> <b>Google Image</b> </mat-checkbox>
+  
+  <!-- <br> -->
+  <ngx-dropzone class='ngx-dropzone' *ngIf="fileImage" (change)="onSelect($event)">
+    <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+    <ngx-dropzone-image-preview *ngFor="let f of files" class="ngx-dropzone-preview" ngProjectAs="ngx-dropzone-preview" [removable]="true" [file]="f" (removed)="onRemove(f)">
+        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+    </ngx-dropzone-image-preview>
+    <img *ngIf="fileImage && files==null" class="ngx-dropzone-preview" [src]='environment+path' alt=''/>
+  </ngx-dropzone>
+  <br>
+  
+  <br>
+  <button mat-raised-button type="submit" color="primary">Submit </button>
+</mat-grid-list>
+</form>
+</mat-dialog-content>
