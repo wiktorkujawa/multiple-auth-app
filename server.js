@@ -4,9 +4,11 @@ const path = require('path');
 const mongoose = require('mongoose'); 
 require('dotenv').config(); 
 const bodyParser = require('body-parser');
-// #6 Initialize an Express application 
 const app = express();
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
 
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 app.use(bodyParser.json({limit: '50mb', extended: false}));
 
@@ -16,6 +18,20 @@ app.use(
     credentials: true
   })
 );
+
+require('./modules/auth');
+
+// Express session
+app.use(
+  session({
+    secret: process.env.sessionSecret,
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 // Connect to Mongo
