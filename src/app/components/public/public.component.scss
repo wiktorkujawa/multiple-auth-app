@@ -1,0 +1,51 @@
+$link-color: #FF4136;
+$sidenav-color: #001f3f;
+
+.navbar{
+  justify-content: space-between;
+}
+
+span {
+  padding-right: 1rem;
+}
+
+
+a {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+
+    &.active {
+      opacity: 0.6;
+      &:hover {
+        color: $link-color;
+        font-weight: 900;
+      }
+
+      &:focus {
+        opacity: 1;
+      }
+      
+  }
+}
+
+li{
+  margin-top: 2rem;
+}
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav, mat-sidenav-content {
+  padding: 16px;
+}
+
+mat-sidenav{
+  background-color: $sidenav-color;
+  width: 200px;
+}
+
+router-outlet{
+  margin: 2rem;
+}
