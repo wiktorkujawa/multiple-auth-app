@@ -1,0 +1,12 @@
+<mat-grid-tile-header style="display: flex; justify-content: space-between" >
+  {{ message.created_at | date:'medium' }}  
+  <button mat-raised-button color="warn" *ngIf="user && user.email==message.email" (click)="onDelete(message._id)" class="del">X</button>
+</mat-grid-tile-header>
+<div class="tile">  
+<img [src]="message.fileImage ? environment+message.path : message.path" class="image"> 
+<div class="block-with-text" [innerHTML]="message.content"></div>
+</div>
+<mat-grid-tile-footer>
+<button *ngIf="user && user.email==message.email" mat-raised-button (click)="onUpdate(message._id)" class="mod">Modify</button>
+<div *ngIf="user && user.isAdmin">{{message.email}}</div>
+</mat-grid-tile-footer>

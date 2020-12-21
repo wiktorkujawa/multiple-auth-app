@@ -7,14 +7,25 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PublicComponent } from './components/public/public.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 import { HttpClientModule } from '@angular/common/http';
 import { AboutComponent } from './components/about/about.component';
+import { AddMessageComponent } from './components/Message/add-message/add-message.component';
+import { MessagesComponent } from './components/Message/messages/messages.component';
+import { MessageItemComponent } from './components/Message/message-item/message-item.component';
+import { UpdateMessageComponent } from './components/Message/update-message/update-message.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     PublicComponent,
-    AboutComponent
+    AboutComponent,
+    AddMessageComponent,
+    MessagesComponent,
+    MessageItemComponent,
+    UpdateMessageComponent
   ],
   imports: [
     FlexLayoutModule,
@@ -22,7 +33,9 @@ import { AboutComponent } from './components/about/about.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    NgxDropzoneModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

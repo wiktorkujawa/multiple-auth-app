@@ -1,0 +1,14 @@
+<button class="add-button" mat-raised-button color="primary" *ngIf='user'(click)="openDialog()">Add message</button>
+<a class="add-button" mat-raised-button [href]="environment + '/auth/google'" *ngIf='!user'> Login to add message</a> 
+<mat-grid-list [cols]="cols" [gutterSize]="gutter" [ngStyle]="{'margin': margin}" rowHeight="10:16">
+  <mat-grid-tile *ngFor="let message of messages" 
+  [ngStyle]="{'background-color': getTileColor(message)}">
+    <app-message-item
+      [user]="user" 
+      [message]="message"
+      (deleteMessage)="deleteMessage(message._id)"
+      (openUpdateDialog)="openUpdateDialog(message._id)"
+      >
+    </app-message-item>
+  </mat-grid-tile>
+</mat-grid-list>

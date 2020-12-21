@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PublicComponent } from './components/public/public.component';
 import { AboutComponent } from './components/about/about.component';
+import { MessagesComponent } from './components/Message/messages/messages.component';
 
 
 
@@ -10,7 +11,8 @@ const routes: Routes = [
     component: PublicComponent,
     children: [
       {path: 'full', redirectTo: '/'},
-      {path:'', component: AboutComponent}
+      {path:'', component: AboutComponent},
+      {path:'messages', component: MessagesComponent}
     ]
   },
 ];
