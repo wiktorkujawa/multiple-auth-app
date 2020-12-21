@@ -3,11 +3,13 @@ const cors = require('cors');
 const path = require('path'); 
 const mongoose = require('mongoose'); 
 require('dotenv').config(); 
+require('./modules/auth');
 const bodyParser = require('body-parser');
 const app = express();
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const auth = require('./routes/auth');
+const session = require('express-session');
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
@@ -20,7 +22,7 @@ app.use(
   })
 );
 
-require('./modules/auth');
+
 
 // Express session
 app.use(
@@ -50,6 +52,7 @@ app.use('/auth', auth);
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('*', (req, res) => { 
+  console.log(__dirname);
     res.sendFile(path.join(__dirname, 'dist/index.html')) 
 }); 
 const PORT = process.env.PORT || 4000; 
