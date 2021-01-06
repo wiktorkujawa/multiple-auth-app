@@ -3,14 +3,15 @@ const cors = require('cors');
 const path = require('path'); 
 const mongoose = require('mongoose'); 
 require('dotenv').config(); 
-require('./modules/auth');
 const bodyParser = require('body-parser');
 const app = express();
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
-const auth = require('./routes/auth');
+
 const session = require('express-session');
+
 const messages = require('./routes/api/messages');
+const google = require('./routes/auth');
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
@@ -49,7 +50,7 @@ mongoose
   .catch(err => console.log(err)); 
 
 app.use('/api/messages', messages);
-app.use('/auth', auth);
+app.use('/auth', google);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
