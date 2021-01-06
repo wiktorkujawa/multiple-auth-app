@@ -15,7 +15,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 
@@ -35,7 +36,9 @@ const MaterialComponents = [
   MatGridListModule,
   MatToolbarModule,
   MatSidenavModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSlideToggleModule,
+  MatMenuModule
 ];
 
 @NgModule({

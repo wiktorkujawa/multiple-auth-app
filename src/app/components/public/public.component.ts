@@ -1,5 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
@@ -18,6 +19,7 @@ export class PublicComponent implements OnInit {
  
 
   constructor(private authService: AuthService,
+    @Inject(DOCUMENT) private document: Document,
     private breakpointObserver: BreakpointObserver) {
       this.breakpointObserver.observe([
         Breakpoints.XSmall,
@@ -40,6 +42,12 @@ export class PublicComponent implements OnInit {
         component.user = this.user;
       })
     } 
+
+    onSwitchTheme(event:any){
+      event.checked ? this.document.body.classList.add('alternate-theme'): this.document.body.classList.remove('alternate-theme') 
+    }
+
+
   ngOnInit(): void {
 
   }
