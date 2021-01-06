@@ -15,6 +15,7 @@ import { MessagesComponent } from './components/Message/messages/messages.compon
 import { MessageItemComponent } from './components/Message/message-item/message-item.component';
 import { UpdateMessageComponent } from './components/Message/update-message/update-message.component';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MaterialModule,
     NgxDropzoneModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
