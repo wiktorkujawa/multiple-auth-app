@@ -11,7 +11,8 @@ const routes: Routes = [
     component: PublicComponent,
     children: [
       {path: 'full', redirectTo: '/'},
-      {path:'', component: AboutComponent},
+      {path: '', component:MessagesComponent},
+      {path:'about', component: AboutComponent},
       {path:'messages', component: MessagesComponent}
     ]
   },
