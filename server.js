@@ -13,6 +13,12 @@ const session = require('express-session');
 const messages = require('./routes/api/messages');
 const google = require('./routes/auth');
 
+app.use(function(req, res, next) {
+  if (!req.user)
+      res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  next();
+});
+
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 app.use(bodyParser.json({limit: '50mb', extended: false}));
