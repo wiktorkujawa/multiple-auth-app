@@ -5,13 +5,13 @@
   <mat-sidenav [(opened)]="opened">
     <ul style="list-style-type:none; margin-top: 2rem;">
      <li> <a mat-button class="active" routerLink="/">About</a></li>
-     <!-- <li> <a mat-button *ngIf='!user' class="active" [href]="environment + '/auth/google'">Login</a></li> -->
-     <li> <a mat-button *ngIf='!user' class="active" (click)="openDialog()">Login</a></li>
-     <li> <a mat-button *ngIf='user' [href]="environment + '/auth/google'">Logout</a></li>
+     <li> <a mat-button class="active" routerLink="/messages">Messages</a></li>
+     <li> <a mat-button *ngIf='!user' class="active" (click)="openDialog(false)">Login</a></li>
+     <li> <a mat-button *ngIf='!user' class="active" (click)="openDialog(true)">Register</a></li>
+     <li> <a mat-button *ngIf='user' (click)="Logout()">Logout</a></li>
     </ul>
   </mat-sidenav>
   <mat-sidenav-content>
-
     <mat-toolbar class="navbar" color="primary">
   
       <mat-button-toggle *ngIf='mobile' (click)="opened=!opened"><mat-icon>menu</mat-icon></mat-button-toggle>
@@ -23,18 +23,18 @@
       <div *ngIf='!mobile'>
         <span><a mat-button class="active" routerLink="/">About</a></span>
         <span><a mat-button class="active" routerLink="/messages">Messages</a></span>
-        <button *ngIf='!user' mat-flat-button (click)="openDialog()"><mat-icon>login</mat-icon></button>
-        <!-- <mat-menu #appMenu="matMenu">
-          <a style="text-align: center;" class="active" mat-menu-item *ngIf='!user' [href]="environment + '/auth/google'">Login</a>
-          <a style="text-align: center;" class="active" mat-menu-item routerLink="/register">Register</a>
-        </mat-menu> -->
-        
-        <span><a mat-button *ngIf='user' [href]="environment + '/auth/logout'">Logout</a></span>
+        <button *ngIf='!user' mat-flat-button [matMenuTriggerFor]="appMenu"><mat-icon>login</mat-icon></button>
+        <mat-menu #appMenu="matMenu">
+          <a style="text-align: center;" class="active" mat-menu-item *ngIf='!user' (click)="openDialog(false)">Login</a>
+          <a style="text-align: center;" class="active" mat-menu-item *ngIf='!user' (click)="openDialog(true)">Register</a>
+        </mat-menu>
+        <span><a mat-button *ngIf='user' (click)="Logout()">Logout</a></span>
         <mat-slide-toggle (change)="onSwitchTheme($event)" ></mat-slide-toggle>
       </div>  
     </mat-toolbar>
+    <p mat-button style="position: absolute; top:0; margin: 6rem 3rem 0 0; right:0; color:green">{{msg}}</p>
 
-    <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
 
   </mat-sidenav-content>
 </mat-sidenav-container>

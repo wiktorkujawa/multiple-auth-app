@@ -2,6 +2,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
@@ -19,9 +20,12 @@ export class PublicComponent implements OnInit {
   mobile!: boolean;
   environment: string = environment.apiUrl;
  
+  msg:any;
+  register: any
 
-  constructor(public dialog: MatDialog
-    ,private authService: AuthService,
+  constructor(public dialog: MatDialog,
+    public _router: Router,
+    private authService: AuthService,
     @Inject(DOCUMENT) private document: Document,
     private breakpointObserver: BreakpointObserver) {
       this.breakpointObserver.observe([
@@ -39,12 +43,41 @@ export class PublicComponent implements OnInit {
         }
       });
     }
-    onOutletLoaded(component:any) {
-      this.authService.getUser().subscribe( user => {
-        this.user = user;
-        component.user = this.user;
-      })
-    } 
+
+    logStatus(data:any){
+      this.user = data.user;
+    }
+
+    Logout(){
+      this.authService.logout()
+      .subscribe(
+        (data:any)=>{
+          this.user=undefined;
+          this.msg = 'Logout success'
+          this._router.navigate(['/'])
+          .then(() => this.msg = data.message);
+          
+        },
+        error => console.error(error)
+      )
+    }
+
+    onActivate(component: any) {
+      this.msg = null;
+      this.authService.getUser()
+      .subscribe(
+        (data:any) => {
+  
+          this.logStatus(data);
+          this.user = data;
+          component.user = this.user;
+        }
+        ,
+        error => component.msg = error.error.message
+        );
+  
+      }
+
 
     onSwitchTheme(event:any){
       event.checked ? this.document.body.classList.add('alternate-theme'): this.document.body.classList.remove('alternate-theme') 
@@ -52,25 +85,46 @@ export class PublicComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    console.log(this.user);
   }
 
-
-  openDialog(){
+  openDialog(register: boolean){
     const ref = this.dialog.open(AuthComponent, { 
-      // width: '60vw',
-      // minWidth:"350px",
-      panelClass: 'my-dialog', 
+      panelClass: 'my-dialog',
+      closeOnNavigation: true, 
       data: {
         environment: this.environment,
-        mobile: this.mobile
+        mobile: this.mobile,
+        register: register
       }
     });
-    // const sub = ref.componentInstance.addHall.subscribe((hall:any) => {
-    //   this.hallService.addHall(hall).subscribe( hall => this.halls.push(hall));
-    // });
+
+    const sub = ref.componentInstance.LoginOrRegister.subscribe((data:any) => {
+      data.register ?
+        this.authService.register(JSON.stringify(data.userData))
+        .subscribe(
+          (data:any) => {
+            ref.componentInstance.data.msg = data.message
+          } ,
+          error =>  ref.componentInstance.data.msg = error.error[0].message
+        ) :
+        this.authService.login(JSON.stringify(data.userData))
+        .subscribe(
+          (data: any) => {
+            this.msg = data.message;
+            this.authService.getUser().subscribe(
+            (data:any) => {
+              this.logStatus(data);
+              this.user = data;
+              this.dialog.closeAll();
+            }
+        );
+          } ,
+          error =>  ref.componentInstance.data.msg = error.error.message
+        )
+    });
     ref.afterClosed().subscribe(() => {
-      // sub.unsubscribe();
+      sub.unsubscribe();
     });
   }
 }

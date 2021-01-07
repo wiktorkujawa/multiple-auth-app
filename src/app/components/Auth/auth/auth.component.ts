@@ -1,7 +1,9 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -11,16 +13,20 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 export class AuthComponent implements OnInit {
   
 
+  @Output() LoginOrRegister: EventEmitter<{register: any, userData: any}> = new EventEmitter();
   environment: any;
   mobile: any;
+
+  register!: boolean;
 
   userData = {
     displayName: '',
     email:'',
-    password:''
+    password:'',
+    password2:''
   };
   form = new FormGroup({});
-  fields: FormlyFieldConfig[] = [
+  loginFields: FormlyFieldConfig[] = [
     {
       key: 'email',
       type: 'input',
@@ -44,19 +50,75 @@ export class AuthComponent implements OnInit {
     }
   ];
 
+  registerFields: FormlyFieldConfig[] = [
+    {
+      key: 'email',
+      type: 'input',
+      templateOptions: {
+        label: 'Email address',
+        placeholder: 'Enter email',
+        required: true,
+        appearance: 'outline'
+      }
+    },
+    {
+      key: 'displayName',
+      type: 'input',
+      templateOptions: {
+        label: 'Name',
+        placeholder: 'Enter name',
+        required: true,
+        appearance: 'outline'
+      }
+    },
+    {
+      key: 'password',
+      type: 'input',
+      templateOptions: {
+        type: 'password',
+        label: 'password',
+        placeholder: 'Enter password',
+        required: true,
+        appearance: 'outline'
+      }
+    },
+    {
+      key: 'password2',
+      type: 'input',
+      templateOptions: {
+        type: 'password',
+        label: 'Confirm password',
+        placeholder: 'Confirm password',
+        required: true,
+        appearance: 'outline'
+      }
+    }
+  ];
+
 
   constructor(public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) 
     public data:any) { }
 
   ngOnInit(): void {
+    this.register = this.data.register;
     this.environment = this.data.environment;
     this.mobile = this.data.mobile;
   }
 
 
   onSubmit(){
-    console.log('Submitted');
+    this.LoginOrRegister.emit({register: this.register, userData: this.userData})
   }
+
+  onNoClick() {
+    this.dialog.closeAll();
+  };
+
+  switchLogin(){
+    this.register = !this.register
+  }
+
+
 
 }

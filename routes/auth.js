@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 require('../modules/auth/google')(passport);
+require('../modules/auth/local')(passport);
 
 
 const isValidUser = (req,res,next) => {
@@ -17,15 +18,15 @@ const register = async (req, res) => {
   const { displayName, email, password, password2} = req.body;
   let errors = [];
   if (!displayName || !email || !password || !password2) {
-    errors.push({ msg: 'Please enter all fields' });
+    errors.push({ message: 'Please enter all fields' });
   }
 
   if (password != password2) {
-    errors.push({ msg: 'Passwords do not match' });
+    errors.push({ message: 'Passwords do not match' });
   }
 
   if (undefined !== password && password.length < 8) {
-    errors.push({ msg: 'Password must be at least 8 characters' });
+    errors.push({ message: 'Password must be at least 8 characters' });
   }
 
   if (errors.length > 0) {
@@ -33,7 +34,7 @@ const register = async (req, res) => {
   } else {
     User.findOne({ email: email }).then(user => {
       if (user) {
-        errors.push({ msg: 'Email already exists' });
+        errors.push({ message: 'Email already exists' });
 
         res.status(409).json(errors);
       } else {
@@ -42,7 +43,7 @@ const register = async (req, res) => {
             displayName: displayName,
             password: User.hashPassword(password)
           }).save();
-          return res.status(201).json({msg: 'Resgistration success'});
+          return res.status(201).json({message: 'Registration success'});
         }
       })
     }
@@ -77,9 +78,11 @@ router.get('/user', isValidUser, (req,res)=>{
   return res.status(200).json(req.user);
 });
 
-router.get("/logout", isValidUser, async (req, res) => {
-  await req.logout();
-  res.redirect('/');
-});
+
+router.get('/logout',isValidUser, (req,res,next) => {
+  req.logout();
+  return res.status(200).json({message:'Logout Success'});
+})
+
 
 module.exports = router;

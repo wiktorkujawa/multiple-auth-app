@@ -1,17 +1,19 @@
-
+<button class="close" mat-button (click)="onNoClick()">X</button>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" >
-  <h1 style="text-align: center;">Login</h1>
+
+  <h1 mat-dialog-title>Welcome!</h1>
   <hr>
   <a mat-raised-button class="social-auth" [href]="environment + '/auth/google'">
     <mat-icon>facebook</mat-icon> Login with Google
     <!-- Google -->
   </a>
- 
-  <formly-form [form]="form" [fields]="fields" [model]="userData"></formly-form>
-  <!-- <p>{{msg}}</p> -->
+  <h1 style="text-align: center;">{{ register ? 'Register' : 'Login'}}</h1>
+  <hr>
+  <formly-form [form]="form" [fields]="register ? registerFields : loginFields" [model]="userData"></formly-form>
+  <p>{{data.msg}}</p>
   <div class="register">
     <button mat-raised-button type="submit" color="primary">Submit </button>
-    <a class="register" routerLink="/register">Not registered?</a>
+    <a mat-button class="register" (click)="switchLogin()">{{ register ? 'Back to login' : 'Not registered?'}}</a>
   </div>
 </form>
