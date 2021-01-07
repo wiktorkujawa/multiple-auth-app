@@ -1,0 +1,17 @@
+$form-padding: 3.5rem;
+$link-color: #FF4136;
+
+.register {
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  color: $link-color;
+}
+
+
+.social-auth{
+  text-decoration: none;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 2rem;
+}

@@ -1,0 +1,17 @@
+
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" >
+  <h1 style="text-align: center;">Login</h1>
+  <hr>
+  <a mat-raised-button class="social-auth" [href]="environment + '/auth/google'">
+    <mat-icon>facebook</mat-icon> Login with Google
+    <!-- Google -->
+  </a>
+ 
+  <formly-form [form]="form" [fields]="fields" [model]="userData"></formly-form>
+  <!-- <p>{{msg}}</p> -->
+  <div class="register">
+    <button mat-raised-button type="submit" color="primary">Submit </button>
+    <a class="register" routerLink="/register">Not registered?</a>
+  </div>
+</form>

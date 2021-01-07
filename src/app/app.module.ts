@@ -14,8 +14,11 @@ import { AddMessageComponent } from './components/Message/add-message/add-messag
 import { MessagesComponent } from './components/Message/messages/messages.component';
 import { MessageItemComponent } from './components/Message/message-item/message-item.component';
 import { UpdateMessageComponent } from './components/Message/update-message/update-message.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
+import { AuthComponent } from './components/Auth/auth/auth.component';
 
 
 @NgModule({
@@ -26,7 +29,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AddMessageComponent,
     MessagesComponent,
     MessageItemComponent,
-    UpdateMessageComponent
+    UpdateMessageComponent,
+    AuthComponent
   ],
   imports: [
     FlexLayoutModule,
@@ -37,7 +41,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MaterialModule,
     NgxDropzoneModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule,
+    FormlyModule.forRoot({ extras: { lazyRender: true } }),
+    FormlyMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
