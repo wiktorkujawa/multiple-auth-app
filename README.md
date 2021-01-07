@@ -1,27 +1,22 @@
-# MultipleAuthApp
+# AuthAndMulterApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
+MEAN stack App with passport local nad social authorization.
 
-## Development server
+## Description
+App written with MEAN Stack(MongoDB, Express, Angular, Node.js) contains passport session authentication, passport oauth-google, API REST and adding files to database with multer/gridFs. Frontend created with Angular material components, formly forms, ngx-dropzone.
+### Usage
+To run create .env file with 'mongoUri' variable to connect to mongodb database and Api Keys and secret(Google client) and secret sessions: 
+- GOOGLE_CLIENT_ID
+- GOOGLE_CLIENT_SECRET
+- sessionSecret
+```bash
+# Run the client & server with concurrently
+yarn dev
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# Run the Express server only
+yarn server
 
-## Code scaffolding
+# Run the React client only
+ng serve --open
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+# Server runs on http://localhost:4000 and client on http://localhost:4200

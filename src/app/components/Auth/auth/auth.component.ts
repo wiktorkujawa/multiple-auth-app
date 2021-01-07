@@ -1,9 +1,7 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-auth',

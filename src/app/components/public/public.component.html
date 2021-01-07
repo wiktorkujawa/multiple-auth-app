@@ -4,7 +4,7 @@
 <mat-sidenav-container>
   <mat-sidenav [(opened)]="opened">
     <ul style="list-style-type:none; margin-top: 2rem;">
-     <li> <a mat-button class="active" routerLink="/">About</a></li>
+     <li> <a mat-button class="active" routerLink="/about">About</a></li>
      <li> <a mat-button class="active" routerLink="/messages">Messages</a></li>
      <li> <a mat-button *ngIf='!user' class="active" (click)="openDialog(false)">Login</a></li>
      <li> <a mat-button *ngIf='!user' class="active" (click)="openDialog(true)">Register</a></li>
@@ -21,7 +21,7 @@
         <mat-slide-toggle *ngIf='mobile' (change)="onSwitchTheme($event)" ></mat-slide-toggle>
       </div>
       <div *ngIf='!mobile'>
-        <span><a mat-button class="active" routerLink="/">About</a></span>
+        <span><a mat-button class="active" routerLink="/about">About</a></span>
         <span><a mat-button class="active" routerLink="/messages">Messages</a></span>
         <button *ngIf='!user' mat-flat-button [matMenuTriggerFor]="appMenu"><mat-icon>login</mat-icon></button>
         <mat-menu #appMenu="matMenu">
