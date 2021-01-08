@@ -58,11 +58,11 @@ mongoose
 app.use('/api/messages', messages);
 app.use('/auth', google);
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 app.get('*', (req, res) => { 
   console.log(__dirname);
-    res.sendFile(path.join(__dirname, 'dist/index.html')) 
+    res.sendFile(path.join(__dirname, '../dist/index.html')) 
 }); 
 const PORT = process.env.PORT || 4000; 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
