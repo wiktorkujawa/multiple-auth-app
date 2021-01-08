@@ -54,7 +54,7 @@ export class PublicComponent implements OnInit {
         (data:any)=>{
           this.user=undefined;
           this.msg = 'Logout success'
-          this._router.navigate(['/'])
+          this._router.navigate(['/about'])
           .then(() => this.msg = data.message);
           
         },
